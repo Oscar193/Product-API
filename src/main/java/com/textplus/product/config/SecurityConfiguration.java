@@ -22,7 +22,7 @@ public class SecurityConfiguration {
         http.sessionManagement(customizer -> customizer
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests((authorize) -> authorize
-                                .requestMatchers("/swagger-ui/**", "/error").permitAll()
+                                .requestMatchers("/swagger-ui/**", "/v3/api-docs/**", "/error").permitAll()
                                 .anyRequest().authenticated()
                 )
                 .csrf(CsrfConfigurer::disable)
