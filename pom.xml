@@ -16,8 +16,14 @@
 	<description>Product Service for TextPlus code challenge</description>
 
 	<properties>
-		<java.version>17</java.version>
+		<maven-pmd-plugin.version>3.20.0</maven-pmd-plugin.version>
+		<spotbugs-maven-plugin.version>4.7.3.6</spotbugs-maven-plugin.version>
 
+		<pmd.version>6.53.0</pmd.version>
+		<spotbugs.version>4.7.3</spotbugs.version>
+		<findsecbugs-plugin.version>1.11.0</findsecbugs-plugin.version>
+
+		<java.version>17</java.version>
 		<amazoncorretto.version>17.0.4</amazoncorretto.version>
 
 		<springdoc.version>2.3.0</springdoc.version>
@@ -78,11 +84,6 @@
 	</dependencies>
 
 	<build>
-<!--		<resources>-->
-<!--			<resource>-->
-<!--				<directory>${basedir}/src/docker</directory>-->
-<!--			</resource>-->
-<!--		</resources>-->
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -111,17 +112,74 @@
 					</execution>
 				</executions>
 			</plugin>
+
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-pmd-plugin</artifactId>
+				<version>${maven-pmd-plugin.version}</version>
+				<dependencies>
+					<dependency>
+						<groupId>net.sourceforge.pmd</groupId>
+						<artifactId>pmd-java</artifactId>
+						<version>${pmd.version}</version>
+					</dependency>
+					<dependency>
+						<groupId>net.sourceforge.pmd</groupId>
+						<artifactId>pmd-core</artifactId>
+						<version>${pmd.version}</version>
+					</dependency>
+				</dependencies>
 				<configuration>
-<!--					<excludes>-->
-<!--						<exclude>-->
-<!--							<groupId>org.projectlombok</groupId>-->
-<!--							<artifactId>lombok</artifactId>-->
-<!--						</exclude>-->
-<!--					</excludes>-->
+					<failOnViolation>true</failOnViolation>
+					<printFailingErrors>true</printFailingErrors>
 				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>check</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>com.github.spotbugs</groupId>
+				<artifactId>spotbugs-maven-plugin</artifactId>
+				<version>${spotbugs-maven-plugin.version}</version>
+				<dependencies>
+					<dependency>
+						<groupId>com.github.spotbugs</groupId>
+						<artifactId>spotbugs</artifactId>
+						<version>${spotbugs.version}</version>
+					</dependency>
+				</dependencies>
+				<configuration>
+					<!-- https://spotbugs.readthedocs.io/en/latest/effort.html -->
+					<effort>More</effort>
+					<xmlOutput>true</xmlOutput>
+					<!-- value between 1 and 20, where 1 to 4 are scariest, 5 to 9 scary, 10 to 14 troubling, and 15 to 20 of concern bugs
+                        https://spotbugs.readthedocs.io/en/latest/running.html?highlight=maxRank -->
+					<maxRank>15</maxRank>
+					<plugins>
+						<plugin>
+							<groupId>com.h3xstream.findsecbugs</groupId>
+							<artifactId>findsecbugs-plugin</artifactId>
+							<version>${findsecbugs-plugin.version}</version>
+						</plugin>
+					</plugins>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>check</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>
