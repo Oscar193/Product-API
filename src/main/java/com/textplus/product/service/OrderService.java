@@ -1,6 +1,5 @@
 package com.textplus.product.service;
 
-import com.textplus.product.dto.NewOrderDto;
 import com.textplus.product.dto.OrderDto;
 
 import java.time.Instant;
@@ -12,7 +11,7 @@ public interface OrderService {
 
     List<OrderDto> getOrders(Instant startCreationDateTime, Instant endCreationDateTime);
 
-    OrderDto createOrder(NewOrderDto newOrderDto);
+    OrderDto createOrder(List<String> products);
 
     OrderDto addProducts(UUID orderId, List<String> products);
 

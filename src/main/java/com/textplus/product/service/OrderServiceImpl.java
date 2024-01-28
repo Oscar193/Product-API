@@ -2,7 +2,6 @@ package com.textplus.product.service;
 
 import com.textplus.product.document.OrderDocument;
 import com.textplus.product.document.ProductDocument;
-import com.textplus.product.dto.NewOrderDto;
 import com.textplus.product.dto.OrderDto;
 import com.textplus.product.dto.OrderStatusEnum;
 import com.textplus.product.exception.IllegalStatusException;
@@ -48,11 +47,11 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public OrderDto createOrder(NewOrderDto newOrderDto) {
-        Map<String, ProductDocument> exisingProducts = productRepository.findAllById(newOrderDto.getProducts()).stream()
+    public OrderDto createOrder(List<String> products) {
+        Map<String, ProductDocument> exisingProducts = productRepository.findAllById(products).stream()
                 .collect(Collectors.toMap(ProductDocument::getName, p -> p));
 
-        List<ProductDocument> orderProducts = newOrderDto.getProducts().stream()
+        List<ProductDocument> orderProducts = products.stream()
                 .map(p -> exisingProducts.computeIfAbsent(p, key -> { throw new ElementNotFound("Product not found. Name: " + key);}))
                 .toList();
 

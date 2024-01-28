@@ -1,12 +1,13 @@
 package com.textplus.product.controller;
 
-import com.textplus.product.dto.NewOrderDto;
 import com.textplus.product.dto.OrderDto;
 import com.textplus.product.service.OrderService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.constraints.NotEmpty;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.Instant;
@@ -16,6 +17,7 @@ import java.util.UUID;
 @RestController
 @RequestMapping(value = "/order")
 @Tag(name = "Order", description = "Order operations.")
+@Validated
 public class OrderController {
 
     private final OrderService orderService;
@@ -46,8 +48,8 @@ public class OrderController {
     @Operation(summary = "Create an order.")
     @PutMapping(path = {"/"})
     public OrderDto createOrder(
-            @RequestBody NewOrderDto newOrderDto) {
-        return orderService.createOrder(newOrderDto);
+            @RequestBody @NotEmpty List<String> products) {
+        return orderService.createOrder(products);
     }
 
     @Operation(summary = "Add products to an order.")
@@ -56,7 +58,7 @@ public class OrderController {
             @PathVariable("orderId")
             @Parameter(description = "Order Id", required = true) UUID orderId,
             @RequestParam("products")
-            @Parameter(description = "Products to add to the order", required = true) List<String> products) {
+            @Parameter(description = "Products to add to the order", required = true) @NotEmpty List<String> products) {
         return orderService.addProducts(orderId, products);
     }
 

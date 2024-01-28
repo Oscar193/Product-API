@@ -4,7 +4,6 @@ import com.mongodb.client.MongoCollection;
 import com.textplus.product.ITBase;
 import com.textplus.product.document.OrderDocument;
 import com.textplus.product.document.ProductDocument;
-import com.textplus.product.dto.NewOrderDto;
 import com.textplus.product.dto.OrderDto;
 import com.textplus.product.dto.OrderStatusEnum;
 import com.textplus.product.dto.ProductDto;
@@ -146,7 +145,7 @@ public class OrderControllerGetOrderFeatureIT extends ITBase {
 
     @Test
     public void CreateOrder_Should_CreateAnOrder() {
-        NewOrderDto newOrder = new NewOrderDto(List.of("Monster White 500ml", "CocaCola 33ml", "Corconte 1.5L Pack 6 unds"));
+        List<String> newOrder = List.of("Monster White 500ml", "CocaCola 33ml", "Corconte 1.5L Pack 6 unds");
 
         ProductDto expectedProductDto1 = new ProductDto("Monster White 500ml", 1.79);
         ProductDto expectedProductDto3 = new ProductDto("Corconte 1.5L Pack 6 unds", 2.30);
@@ -178,7 +177,7 @@ public class OrderControllerGetOrderFeatureIT extends ITBase {
 
     @Test
     public void CreateOrder_Should_CreateAnOrderWithDuplicatedProduct_When_HavingAProductMultipleTimes() {
-        NewOrderDto newOrder = new NewOrderDto(List.of("Monster White 500ml", "CocaCola 33ml", "Monster White 500ml"));
+        List<String> newOrder = List.of("Monster White 500ml", "CocaCola 33ml", "Monster White 500ml");
 
         ProductDto expectedProductDto1 = new ProductDto("Monster White 500ml", 1.79);
         ProductDto expectedProductDto6 = new ProductDto("CocaCola 33ml", 0.77);
@@ -208,7 +207,7 @@ public class OrderControllerGetOrderFeatureIT extends ITBase {
 
     @Test
     public void CreateOrder_Should_GetNotFound_When_AtLeastOneProductDoesNotExist() {
-        NewOrderDto newOrder = new NewOrderDto(List.of("Monster White 500ml", "MadeUp", "Corconte 1.5L Pack 6 unds"));
+        List<String> newOrder = List.of("Monster White 500ml", "MadeUp", "Corconte 1.5L Pack 6 unds");
 
         ResponseEntity<String> response = getTestRestTemplate().exchange(
                 "/order/",
