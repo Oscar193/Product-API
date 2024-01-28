@@ -15,4 +15,4 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Build the Docker image
-        run: docker buildx build . --file Dockerfile --tag miguno/product-api:$(date +%s)
+        run: docker buildx build . --file target/Dockerfile --tag miguno/product-api:$(date +%s)
