@@ -22,6 +22,7 @@ public class OrderDocument {
     @BsonId
     @MongoId
     private String id;
+    private String buyersEmail;
     private List<ProductDocument> products;
     private Instant creationDateTime;
     private OrderStatusEnum status;

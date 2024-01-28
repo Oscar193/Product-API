@@ -55,8 +55,8 @@ public class OrderServiceImpl implements OrderService {
                 .map(p -> exisingProducts.computeIfAbsent(p, key -> { throw new ElementNotFound("Product not found. Name: " + key);}))
                 .toList();
 
-        OrderDocument newOrderDocument = new OrderDocument(UUID.randomUUID().toString(), orderProducts, Instant.now(),
-                OrderStatusEnum.IN_PROGRESS);
+        OrderDocument newOrderDocument = new OrderDocument(UUID.randomUUID().toString(), "user1@gmail.com",
+                orderProducts, Instant.now(), OrderStatusEnum.IN_PROGRESS);
         OrderDocument createdOrderDocument = orderRepository.insert(newOrderDocument);
         return conversionService.convert(createdOrderDocument, OrderDto.class);
     }

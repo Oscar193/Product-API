@@ -34,6 +34,7 @@ public class OrderDtoFromOrderDocumentConverter implements Converter<OrderDocume
 
         return new OrderDto(
                 UUID.fromString(document.getId()),
+                document.getBuyersEmail(),
                 productDtos,
                 document.getCreationDateTime(),
                 document.getStatus());
