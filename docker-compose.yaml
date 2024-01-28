@@ -1,0 +1,15 @@
+services:
+
+  mongodb:
+    image: mongo:5.0.12
+    ports:
+      - "27017:27017"
+
+  product-service:
+    build: ./target
+    ports:
+      - "8080:8080"
+      - "8000:8000" # debug
+    environment:
+      - "SPRING_DATA_MONGODB_URI=mongodb://mongodb:27017/db"
+      - "JAVA_TOOL_OPTIONS=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:8000"
