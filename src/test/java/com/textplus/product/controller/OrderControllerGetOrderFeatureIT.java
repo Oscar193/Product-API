@@ -40,16 +40,20 @@ public class OrderControllerGetOrderFeatureIT extends ITBase {
 
         getProductColl().insertMany(List.of(product1, product2, product3, product4, product6));
 
-        OrderDocument order1 = new OrderDocument(UUID.nameUUIDFromBytes("order1".getBytes()).toString(), List.of(product1, product2, product3),
+        OrderDocument order1 = new OrderDocument(UUID.nameUUIDFromBytes("order1".getBytes()).toString(), "user1@gmail.com",
+                List.of(product1, product2, product3),
                 Instant.from(OffsetDateTime.of(2024, 3, 12, 16, 27, 42, 0, ZoneOffset.UTC)),
                 OrderStatusEnum.IN_PROGRESS);
-        OrderDocument order2 = new OrderDocument(UUID.nameUUIDFromBytes("order2".getBytes()).toString(), List.of(product4),
+        OrderDocument order2 = new OrderDocument(UUID.nameUUIDFromBytes("order2".getBytes()).toString(), "user1@gmail.com",
+                List.of(product4),
                 Instant.from(OffsetDateTime.of(2024, 2, 12, 16, 27, 42, 0, ZoneOffset.UTC)),
                 OrderStatusEnum.DELETED);
-        OrderDocument order3 = new OrderDocument(UUID.nameUUIDFromBytes("order3".getBytes()).toString(), List.of(product4, product5),
+        OrderDocument order3 = new OrderDocument(UUID.nameUUIDFromBytes("order3".getBytes()).toString(), "user1@gmail.com",
+                List.of(product4, product5),
                 Instant.from(OffsetDateTime.of(2024, 4, 12, 16, 27, 42, 0, ZoneOffset.UTC)),
                 OrderStatusEnum.FINISHED);
-        OrderDocument order4 = new OrderDocument(UUID.nameUUIDFromBytes("order4".getBytes()).toString(), List.of(product2, product3),
+        OrderDocument order4 = new OrderDocument(UUID.nameUUIDFromBytes("order4".getBytes()).toString(), "user1@gmail.com",
+                List.of(product2, product3),
                 Instant.from(OffsetDateTime.of(2024, 7, 12, 16, 27, 42, 0, ZoneOffset.UTC)),
                 OrderStatusEnum.IN_PROGRESS);
 
@@ -69,7 +73,8 @@ public class OrderControllerGetOrderFeatureIT extends ITBase {
         ProductDto product1 = new ProductDto("Monster White 500ml", 1.79);
         ProductDto product2 = new ProductDto("CocaCola Zero 33ml", 0.78);
         ProductDto product3 = new ProductDto("Corconte 1.5L Pack 6 unds", 2.30);
-        OrderDto expectedResponse = new OrderDto(UUID.nameUUIDFromBytes("order1".getBytes()), List.of(product1, product2, product3),
+        OrderDto expectedResponse = new OrderDto(UUID.nameUUIDFromBytes("order1".getBytes()), "user1@gmail.com",
+                List.of(product1, product2, product3),
                 Instant.from(OffsetDateTime.of(2024, 3, 12, 16, 27, 42, 0, ZoneOffset.UTC)),
                 OrderStatusEnum.IN_PROGRESS);
 
@@ -105,13 +110,16 @@ public class OrderControllerGetOrderFeatureIT extends ITBase {
         ProductDto product3 = new ProductDto("Corconte 1.5L Pack 6 unds", 2.30);
         ProductDto product4 = new ProductDto("CocaCola Zero 2L", 1.98);
         ProductDto product5 = new ProductDto("CocaCola Zero 2L", 2.0);
-        OrderDto order1 = new OrderDto(UUID.nameUUIDFromBytes("order1".getBytes()), List.of(product1, product2, product3),
+        OrderDto order1 = new OrderDto(UUID.nameUUIDFromBytes("order1".getBytes()), "user1@gmail.com",
+                List.of(product1, product2, product3),
                 Instant.from(OffsetDateTime.of(2024, 3, 12, 16, 27, 42, 0, ZoneOffset.UTC)),
                 OrderStatusEnum.IN_PROGRESS);
-        OrderDto order2 = new OrderDto(UUID.nameUUIDFromBytes("order2".getBytes()), List.of(product4),
+        OrderDto order2 = new OrderDto(UUID.nameUUIDFromBytes("order2".getBytes()), "user1@gmail.com",
+                List.of(product4),
                 Instant.from(OffsetDateTime.of(2024, 2, 12, 16, 27, 42, 0, ZoneOffset.UTC)),
                 OrderStatusEnum.DELETED);
-        OrderDto order3 = new OrderDto(UUID.nameUUIDFromBytes("order3".getBytes()), List.of(product4, product5),
+        OrderDto order3 = new OrderDto(UUID.nameUUIDFromBytes("order3".getBytes()), "user1@gmail.com",
+                List.of(product4, product5),
                 Instant.from(OffsetDateTime.of(2024, 4, 12, 16, 27, 42, 0, ZoneOffset.UTC)),
                 OrderStatusEnum.FINISHED);
 
@@ -225,7 +233,8 @@ public class OrderControllerGetOrderFeatureIT extends ITBase {
         ProductDto product2 = new ProductDto("CocaCola Zero 33ml", 0.78);
         ProductDto product3 = new ProductDto("Corconte 1.5L Pack 6 unds", 2.30);
         ProductDto product6 = new ProductDto("CocaCola 33ml", 0.77);
-        OrderDto expectedResponse = new OrderDto(UUID.nameUUIDFromBytes("order1".getBytes()), List.of(product1, product2, product3, product6),
+        OrderDto expectedResponse = new OrderDto(UUID.nameUUIDFromBytes("order1".getBytes()), "user1@gmail.com",
+                List.of(product1, product2, product3, product6),
                 Instant.from(OffsetDateTime.of(2024, 3, 12, 16, 27, 42, 0, ZoneOffset.UTC)),
                 OrderStatusEnum.IN_PROGRESS);
 
@@ -247,7 +256,7 @@ public class OrderControllerGetOrderFeatureIT extends ITBase {
         ProductDocument productDoc3 = new ProductDocument("Corconte 1.5L Pack 6 unds", 2.30);
         ProductDocument productDoc6 = new ProductDocument("CocaCola 33ml", 0.77);
         OrderDocument expectedOrderDocument = new OrderDocument(UUID.nameUUIDFromBytes("order1".getBytes()).toString(),
-                List.of(productDoc1, productDoc2, productDoc3, productDoc6),
+                "user1@gmail.com", List.of(productDoc1, productDoc2, productDoc3, productDoc6),
                 Instant.from(OffsetDateTime.of(2024, 3, 12, 16, 27, 42, 0, ZoneOffset.UTC)),
                 OrderStatusEnum.IN_PROGRESS);
 
@@ -290,7 +299,8 @@ public class OrderControllerGetOrderFeatureIT extends ITBase {
         ProductDto product1 = new ProductDto("Monster White 500ml", 1.79);
         ProductDto product2 = new ProductDto("CocaCola Zero 33ml", 0.78);
         ProductDto product3 = new ProductDto("Corconte 1.5L Pack 6 unds", 2.30);
-        OrderDto expectedResponse = new OrderDto(UUID.nameUUIDFromBytes("order1".getBytes()), List.of(product1, product2, product3),
+        OrderDto expectedResponse = new OrderDto(UUID.nameUUIDFromBytes("order1".getBytes()), "user1@gmail.com",
+                List.of(product1, product2, product3),
                 Instant.from(OffsetDateTime.of(2024, 3, 12, 16, 27, 42, 0, ZoneOffset.UTC)),
                 OrderStatusEnum.DELETED);
 
@@ -310,7 +320,7 @@ public class OrderControllerGetOrderFeatureIT extends ITBase {
         ProductDocument productDoc2 = new ProductDocument("CocaCola Zero 33ml", 0.78);
         ProductDocument productDoc3 = new ProductDocument("Corconte 1.5L Pack 6 unds", 2.30);
         OrderDocument expectedOrderDocument = new OrderDocument(UUID.nameUUIDFromBytes("order1".getBytes()).toString(),
-                List.of(productDoc1, productDoc2, productDoc3),
+                "user1@gmail.com", List.of(productDoc1, productDoc2, productDoc3),
                 Instant.from(OffsetDateTime.of(2024, 3, 12, 16, 27, 42, 0, ZoneOffset.UTC)),
                 OrderStatusEnum.DELETED);
 

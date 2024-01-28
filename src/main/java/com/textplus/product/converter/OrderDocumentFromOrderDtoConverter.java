@@ -32,6 +32,7 @@ public class OrderDocumentFromOrderDtoConverter implements Converter<OrderDto, O
 
         return OrderDocument.builder()
                 .id(dto.getId().toString())
+                .buyersEmail(dto.getBuyersEmail())
                 .products(productDocuments)
                 .creationDateTime(dto.getCreationDateTime())
                 .status(dto.getStatus())
